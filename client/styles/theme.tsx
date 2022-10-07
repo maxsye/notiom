@@ -23,8 +23,14 @@ const theme = extendTheme({
         document: {
           width: '150px',
           height: '150px',
-          border: 'solid',
-          bg: '#2F80ED',
+          border: '1px solid',
+          bg: '#F8F8F8',
+          borderColor: '#A3A3A3',
+          color: "#545454",
+          style: {
+            whiteSpace: "normal",
+            wordWrap: "break-word",
+          }
         },
       },
     },
