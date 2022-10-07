@@ -1,9 +1,23 @@
-import { Box, Image, Heading, Text, HStack, Spacer, Button } from "@chakra-ui/react";
+import {
+  Box,
+  Image,
+  Heading,
+  Text,
+  HStack,
+  Spacer,
+  Button,
+} from '@chakra-ui/react';
 
 const CreatePrompt = () => {
   return (
     <Box px={12} py={10}>
-      <HStack align="center" spacing={4} justifyContent="center" display="flex" flexDirection="column">
+      <HStack
+        align="center"
+        spacing={4}
+        justifyContent="center"
+        display="flex"
+        flexDirection="column"
+      >
         <Heading color="#545454" fontSize="5xl">
           Create. Explore.
         </Heading>
