@@ -20,6 +20,11 @@ const theme = extendTheme({
             color: 'green',
           },
         },
+        document: {
+          width: '150px',
+          height: '150px',
+          border: 'solid',
+        },
       },
     },
   },
