@@ -24,6 +24,7 @@ const theme = extendTheme({
           width: '150px',
           height: '150px',
           border: 'solid',
+          bg: '#2F80ED',
         },
       },
     },
