@@ -26,11 +26,22 @@ const theme = extendTheme({
           border: '1px solid',
           bg: '#F8F8F8',
           borderColor: '#A3A3A3',
-          color: "#545454",
+          color: '#545454',
           style: {
-            whiteSpace: "normal",
-            wordWrap: "break-word",
-          }
+            whiteSpace: 'normal',
+            wordWrap: 'break-word',
+          },
+        },
+        openModal: {
+          width: '150px',
+          height: '150px',
+          bg: '#F8F8F8',
+          bgImage: 'BlueDocument.svg',
+          color: '#545454',
+          style: {
+            whiteSpace: 'normal',
+            wordWrap: 'break-word',
+          },
         },
       },
     },
