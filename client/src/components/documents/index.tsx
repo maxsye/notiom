@@ -1,10 +1,8 @@
-import { Button, Image, Grid, GridItem, Link, Text } from '@chakra-ui/react';
-
-import { useDisclosure } from '@chakra-ui/react-use-disclosure';
-
-import Document from './document';
-
 import {
+  Box,
+  Grid,
+  GridItem,
+  Image,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -12,71 +10,98 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  FormControl,
-  FormLabel,
+  useDisclosure,
+  Button,
   Input,
-  FormHelperText,
+  HStack,
 } from '@chakra-ui/react';
-
-import { useRef, useState } from 'react';
+import { useState } from 'react';
+import Document from '../documents/document';
 
 const Documents = () => {
-  const [text, setText] = useState<String>('');
-  const [docs, setDocs] = useState<Array<any>>([]);
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const [value, setValue] = useState('');
 
-  function renderDocument(text: String) {
-    docs.push(<Document text={text} />);
-    setDocs(docs);
-  }
+  const [docText, setDocText] = useState(Array());
+
+  const [edit, setEdit] = useState(false);
+
+  const [orgText, setOrgText] = useState('');
+
+  const createDocument = (newText: string) => {
+    if (edit === true) {
+      let newDocText = [...docText];
+      newDocText[docText.indexOf(orgText)] = newText;
+      setDocText(newDocText);
+
+      setOrgText('');
+      setEdit(false);
+    } else {
+      setDocText([...docText, newText]);
+    }
+  };
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Grid templateColumns="repeat(6, 1fr)" mx={50} my={10} gap={8}>
-      <GridItem>
-        <Button variant="openModal" onClick={onOpen}>
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>
-                <ModalCloseButton />
-              </ModalHeader>
+    <>
+      <Grid
+        templateColumns="repeat(7, 1fr)"
+        pl={50}
+        pr={3}
+        my={10}
+        gap={8}
+        justifyContent="space-between"
+      >
+        <GridItem>
+          <Box as="button" onClick={onOpen}>
+            <Image src="/create-document.svg" alt="Create document" w={130} />
+          </Box>
+        </GridItem>
 
-              <ModalBody>
-                <form
-                  id="new-note"
-                  onSubmit={(event) => {
-                    event.preventDefault();
-                    renderDocument(text);
-                    setText('');
-                    alert('Submitted');
-                  }}
-                >
-                  <FormControl>
-                    <FormLabel>Create Document</FormLabel>
-                    <Input
-                      onChange={(event) => {
-                        setText(event.target.value);
-                      }}
-                    />
-                    <FormHelperText>Edit New Document</FormHelperText>
-                  </FormControl>
-                </form>
-              </ModalBody>
+        {docText.map((text) => {
+          return (
+            <GridItem key={text}>
+              <Document
+                coverText={text}
+                clickFunc={onOpen}
+                setValue={setValue}
+                setEdit={setEdit}
+                setOrgText={setOrgText}
+              />
+            </GridItem>
+          );
+        })}
+      </Grid>
 
-              <ModalFooter>
-                <Button type="submit" form="new-note">
-                  Submit
-                </Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-        </Button>
-      </GridItem>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Edit Text</ModalHeader>
+          <ModalCloseButton mr={1} />
+          <ModalBody>
+            <Input
+              placeholder="New document"
+              value={value}
+              onChange={(event) => {
+                setValue(event.target.value);
+              }}
+            />
+          </ModalBody>
 
-      {docs.map((item) => {
-        return <GridItem>{item}</GridItem>;
-      })}
-    </Grid>
+          <ModalFooter>
+            <Button
+              variant="create"
+              onClick={() => {
+                createDocument(value);
+                setValue('');
+              }}
+            >
+              Save
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 
