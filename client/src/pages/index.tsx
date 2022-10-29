@@ -1,14 +1,18 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
-import NavBar from '../components/NavBar';
-import CreatePrompt from '../components/CreatePrompt';
+import { Box } from '@chakra-ui/react';
+import Documents from '../components/documents';
+import NavBar from '../components/nav-bar';
+import LandingInfo from '../components/landing-info';
+
 const Home: NextPage = () => {
-  return (    
-  <>
-    <NavBar />
-    <CreatePrompt/>
-  </>
+  return (
+    <>
+      <Box bg="#FBFBFA">
+        <NavBar />
+        <LandingInfo />
+      </Box>
+      <Documents />
+    </>
   );
 };
 

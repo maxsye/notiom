@@ -14,10 +14,7 @@ const theme = extendTheme({
           bg: '#2F80ED',
           color: 'white',
           _hover: {
-            bg: 'white',
-            borderWidth: '10px',
-            borderColor: 'brown',
-            color: 'green',
+            bg: '#0F6DEB',
           },
         },
       },
