@@ -1,13 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { supabase } from '../../../utils/supabaseClient'
 
-async function signInWithEmail() {
-    const { data, error } = await supabase.auth.signInWithPassword({
-        email: 'example@email.com',
-        password: 'example-password',
+module.exports = async (req: NextApiRequest, res: NextApiResponse) => {
+    const { data: docs, error } = await supabase.auth.signUp({
+        email: req.body.email,
+        password: req.body.password,
     })
-}
-
-async function signOut() {
-    const { error } = await supabase.auth.signOut()
+    if (error != null) {
+        res.status(400).send(error)
+    } else {
+        res.status(200).send('signed up')
+    }
+    // doing res.send() is a return statement
 }
